@@ -1,285 +1,925 @@
-<section
-  class="elp-form-section"
-  id="formSection"
->
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Подбор недвижимости — Элитополис</title>
+  <meta name="description" content="АН «Элитополис» — подбор актуальных вариантов недвижимости, планировок и условий покупки.">
+  <meta name="robots" content="index,follow">
 
-  <div class="elp-form-card">
+  <style>
+    :root{
+      --ink:#15171a;
+      --muted:#6e7279;
+      --line:rgba(21,23,26,.12);
+      --soft:#f5f5f2;
+      --card:#fff;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+
+    body{
+      margin:0;
+      background:#fff;
+      color:var(--ink);
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+    }
+
+    button,input{font:inherit}
+
+    .elp-wrap{
+      max-width:1480px;
+      margin:0 auto;
+      padding:0 24px 64px;
+    }
+
+    .elp-hero{
+      min-height:90vh;
+      display:grid;
+      grid-template-columns:minmax(0,58%) minmax(0,42%);
+      gap:32px;
+      align-items:center;
+      padding:28px 0 56px;
+    }
+
+    .elp-hero__visual{
+      grid-column:1;
+      grid-row:1;
+      width:min(100%,calc(84vh * 0.5385));
+      aspect-ratio:896 / 1664;
+      min-height:0;
+      justify-self:center;
+      align-self:center;
+      background-image:url("hero.jpg.png");
+      background-color:#eef1f4;
+      background-size:cover;
+      background-position:center center;
+      background-repeat:no-repeat;
+      border-radius:26px;
+      overflow:hidden;
+      position:relative;
+    }
+
+    .elp-hero__copy{
+      grid-column:2;
+      grid-row:1;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      padding:42px 0;
+    }
+
+    .elp-eyebrow,
+    .elp-section-kicker{
+      font-size:12px;
+      line-height:1.2;
+      letter-spacing:.16em;
+      text-transform:uppercase;
+      font-weight:700;
+      margin-bottom:22px;
+      opacity:.72;
+    }
+
+    h1,h2{
+      margin:0;
+      font-weight:600;
+      letter-spacing:-.045em;
+    }
+
+    .elp-title{
+      display:flex;
+      flex-direction:column;
+      gap:.055em;
+      font-size:clamp(52px,5.5vw,92px);
+      line-height:.92;
+      max-width:720px;
+    }
+
+    .elp-title span{
+      display:block;
+      margin:0;
+      padding:0;
+    }
+
+    .elp-lead{
+      font-size:clamp(18px,1.35vw,23px);
+      line-height:1.5;
+      max-width:650px;
+      margin:28px 0 32px;
+      color:var(--muted);
+    }
+
+    .elp-choice-grid{
+      display:grid;
+      gap:10px;
+      margin:0 0 24px;
+    }
+
+    .elp-choice{
+      width:100%;
+      display:grid;
+      grid-template-columns:48px 1fr;
+      gap:12px;
+      align-items:center;
+      text-align:left;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.72);
+      padding:16px 18px;
+      border-radius:16px;
+      cursor:pointer;
+      transition:.16s;
+      color:inherit;
+    }
+
+    .elp-choice:hover,
+    .elp-choice.is-selected{
+      transform:translateY(-1px);
+      border-color:rgba(21,23,26,.36);
+      background:#fff;
+    }
+
+    .elp-choice__num{
+      font-size:13px;
+      opacity:.46;
+      font-weight:700;
+    }
+
+    .elp-choice strong{
+      display:block;
+      font-size:17px;
+      margin-bottom:3px;
+    }
+
+    .elp-choice small{
+      display:block;
+      color:var(--muted);
+      font-size:14px;
+    }
+
+    .elp-primary{
+      appearance:none;
+      border:0;
+      background:var(--ink);
+      color:#fff;
+      border-radius:999px;
+      padding:16px 24px;
+      min-height:54px;
+      display:inline-flex;
+      gap:14px;
+      align-items:center;
+      justify-content:center;
+      font-size:15px;
+      font-weight:700;
+      cursor:pointer;
+      width:fit-content;
+      transition:.16s;
+    }
+
+    .elp-primary:hover{
+      opacity:.9;
+      transform:translateY(-1px);
+    }
+
+    .elp-primary:disabled{
+      opacity:.5;
+      cursor:wait;
+    }
+
+    .elp-service{
+      padding:112px 0 120px;
+      border-top:1px solid var(--line);
+    }
+
+    .elp-service h2,
+    .elp-form-section h2{
+      font-size:clamp(42px,4.8vw,74px);
+      line-height:.98;
+      max-width:900px;
+    }
+
+    .elp-service__intro{
+      max-width:900px;
+      font-size:clamp(19px,1.5vw,24px);
+      line-height:1.55;
+      color:var(--muted);
+      margin:30px 0 50px;
+    }
+
+    .elp-benefits{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:14px;
+      margin-bottom:34px;
+    }
+
+    .elp-benefits>div{
+      background:var(--soft);
+      border-radius:18px;
+      padding:24px;
+      min-height:180px;
+    }
+
+    .elp-benefits strong{
+      display:block;
+      font-size:18px;
+      margin-bottom:18px;
+    }
+
+    .elp-benefits p{
+      margin:0;
+      color:var(--muted);
+      line-height:1.5;
+      font-size:15px;
+    }
+
+    .elp-note{
+      font-size:13px;
+      color:var(--elp-muted,var(--muted));
+      margin-top:14px;
+    }
+
+    .elp-form-section{
+      padding:100px 0 70px;
+      border-top:1px solid var(--line);
+    }
+
+    .elp-form-card{
+      display:grid;
+      grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);
+      gap:50px;
+      align-items:start;
+    }
+
+    .elp-form-copy p{
+      color:var(--muted);
+      font-size:18px;
+      line-height:1.5;
+    }
+
+    .elp-chips{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-bottom:34px;
+    }
+
+    .elp-chip input{
+      position:absolute;
+      opacity:0;
+      pointer-events:none;
+    }
+
+    .elp-chip span{
+      display:block;
+      border:1px solid var(--line);
+      border-radius:999px;
+      padding:12px 16px;
+      cursor:pointer;
+      background:#fff;
+      font-size:14px;
+      transition:.16s;
+    }
+
+    .elp-chip input:checked+span{
+      background:var(--ink);
+      color:#fff;
+      border-color:var(--ink);
+    }
+
+    .elp-contact-title{
+      font-size:24px;
+      font-weight:650;
+      margin:12px 0 18px;
+    }
+
+    .elp-fields{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:12px;
+    }
+
+    .elp-fields label>span{
+      display:block;
+      font-size:12px;
+      font-weight:700;
+      margin:0 0 7px 4px;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+      opacity:.6;
+    }
+
+    .elp-fields input{
+      width:100%;
+      border:1px solid var(--line);
+      border-radius:14px;
+      min-height:56px;
+      padding:0 16px;
+      background:#fff;
+      color:var(--ink);
+      outline:none;
+    }
+
+    .elp-fields input:focus{
+      border-color:rgba(21,23,26,.5);
+    }
+
+    .elp-consent{
+      display:grid;
+      grid-template-columns:18px 1fr;
+      gap:10px;
+      margin:18px 0 24px;
+      color:var(--muted);
+      font-size:12px;
+      line-height:1.45;
+    }
+
+    .elp-consent input{margin-top:2px}
+
+    .elp-consent a{
+      color:inherit;
+      text-decoration:underline;
+    }
+
+    .elp-form-status{
+      margin-top:12px;
+      font-size:13px;
+      color:#9a2f2f;
+    }
+
+    .elp-success{padding:30px 0}
+
+    .elp-success__mark{
+      width:50px;
+      height:50px;
+      border-radius:50%;
+      display:grid;
+      place-items:center;
+      background:var(--ink);
+      color:#fff;
+      font-size:24px;
+      margin-bottom:24px;
+    }
+
+    .elp-success p{
+      font-size:18px;
+      color:var(--muted);
+      line-height:1.5;
+    }
+
+    @media(max-width:980px){
+      .elp-wrap{padding:0 18px 42px}
+      .elp-hero{
+        min-height:auto;
+        grid-template-columns:1fr;
+        gap:28px;
+        padding-top:18px;
+      }
+      .elp-hero__visual{
+        grid-column:1;
+        grid-row:1;
+        width:min(100%,520px);
+        aspect-ratio:896 / 1664;
+        justify-self:center;
+        min-height:0;
+        border-radius:20px;
+      }
+      .elp-hero__copy{
+        grid-column:1;
+        grid-row:2;
+        padding:10px 0 42px;
+      }
+      .elp-benefits{grid-template-columns:1fr 1fr}
+      .elp-form-card{grid-template-columns:1fr;gap:34px}
+    }
+
+    @media(max-width:640px){
+      .elp-wrap{padding-left:14px;padding-right:14px}
+      .elp-hero{gap:24px}
+      .elp-hero__visual{
+        width:100%;
+        aspect-ratio:896 / 1664;
+        min-height:0;
+        border-radius:16px;
+      }
+      .elp-eyebrow,
+      .elp-section-kicker{margin-bottom:16px}
+      .elp-title{
+        font-size:clamp(42px,13vw,60px);
+        line-height:.92;
+        gap:.055em;
+      }
+      .elp-lead{
+        font-size:17px;
+        margin:20px 0 24px;
+      }
+      .elp-choice{
+        grid-template-columns:38px 1fr;
+        padding:14px;
+      }
+      .elp-primary{width:100%}
+      .elp-service{padding:72px 0 76px}
+      .elp-service h2,
+      .elp-form-section h2{font-size:42px}
+      .elp-service__intro{
+        font-size:17px;
+        margin:24px 0 34px;
+      }
+      .elp-benefits{grid-template-columns:1fr}
+      .elp-benefits>div{min-height:auto}
+      .elp-form-section{padding:72px 0 40px}
+      .elp-fields{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="elp-wrap">
+
+    <section class="elp-hero">
+
+      <div class="elp-hero__visual" id="heroVisual"></div>
+
+      <div class="elp-hero__copy">
+
+        <div class="elp-eyebrow">
+          АН «Элитополис» · подбор недвижимости
+        </div>
+
+        <h1 class="elp-title">
+          <span>Квартиру</span>
+          <span>выбирайте</span>
+          <span>сами</span>
+        </h1>
+
+        <p class="elp-lead">
+          Подберём актуальные варианты, проверим планировки,
+          условия покупки и детали конкретных квартир.
+        </p>
+
+        <div class="elp-choice-grid">
+
+          <button type="button" class="elp-choice" data-interest="Квартиры и планировки">
+            <span class="elp-choice__num">01</span>
+            <span>
+              <strong>Квартиры и планировки</strong>
+              <small>Подобрать варианты под ваш запрос</small>
+            </span>
+          </button>
+
+          <button type="button" class="elp-choice" data-interest="Цены">
+            <span class="elp-choice__num">02</span>
+            <span>
+              <strong>Цены и условия</strong>
+              <small>Проверить актуальные условия покупки</small>
+            </span>
+          </button>
+
+          <button type="button" class="elp-choice" data-interest="Вид из квартиры">
+            <span class="elp-choice__num">03</span>
+            <span>
+              <strong>Вид и расположение</strong>
+              <small>Проверить этаж, окна и вид</small>
+            </span>
+          </button>
+
+        </div>
+
+        <button type="button" class="elp-primary elp-scroll-form">
+          Получить подборку <span>→</span>
+        </button>
+
+      </div>
+
+    </section>
 
 
-    <div class="elp-form-copy">
+    <section class="elp-service">
 
       <div class="elp-section-kicker">
-        ВАШ ЗАПРОС
+        ЭЛИТОПОЛИС
       </div>
 
       <h2>
-        Что вам показать?
+        Подбор вместо бесконечного поиска
       </h2>
 
-      <p>
-        Выберите то, что важно.
-        Можно несколько вариантов.
+      <p class="elp-service__intro">
+        Не нужно самостоятельно сравнивать десятки сайтов,
+        звонить в отделы продаж и выяснять, какие предложения
+        ещё актуальны. АН «Элитополис» проверит варианты под ваш
+        запрос и соберёт их в одну понятную подборку.
       </p>
 
-    </div>
+      <div class="elp-benefits">
 
+        <div>
+          <strong>Актуальность</strong>
+          <p>Проверим, какие квартиры действительно доступны сейчас.</p>
+        </div>
 
-    <form
-      id="leadForm"
-      novalidate
-    >
+        <div>
+          <strong>Планировки</strong>
+          <p>Отберём подходящие варианты, а не весь каталог подряд.</p>
+        </div>
 
-      <div
-        class="elp-chips"
-        id="interestChips"
-      >
+        <div>
+          <strong>Условия покупки</strong>
+          <p>Сравним действующие способы оплаты и предложения.</p>
+        </div>
 
-        <label class="elp-chip">
-
-          <input
-            type="checkbox"
-            name="interests"
-            value="Квартиры и планировки"
-          >
-
-          <span>
-            Квартиры и планировки
-          </span>
-
-        </label>
-
-
-        <label class="elp-chip">
-
-          <input
-            type="checkbox"
-            name="interests"
-            value="Цены"
-          >
-
-          <span>
-            Цены
-          </span>
-
-        </label>
-
-
-        <label class="elp-chip">
-
-          <input
-            type="checkbox"
-            name="interests"
-            value="Рассрочка / ипотека"
-          >
-
-          <span>
-            Рассрочка / ипотека
-          </span>
-
-        </label>
-
-
-        <label class="elp-chip">
-
-          <input
-            type="checkbox"
-            name="interests"
-            value="Вид из квартиры"
-          >
-
-          <span>
-            Вид из квартиры
-          </span>
-
-        </label>
-
-
-        <label class="elp-chip">
-
-          <input
-            type="checkbox"
-            name="interests"
-            value="Хочу сравнить варианты"
-          >
-
-          <span>
-            Хочу сравнить варианты
-          </span>
-
-        </label>
-
-
-        <label class="elp-chip">
-
-          <input
-            type="checkbox"
-            name="interests"
-            value="Пока просто смотрю"
-          >
-
-          <span>
-            Пока просто смотрю
-          </span>
-
-        </label>
+        <div>
+          <strong>Конкретная квартира</strong>
+          <p>Проверим этаж, расположение, ориентацию окон и вид.</p>
+        </div>
 
       </div>
 
-
-      <div class="elp-contact-title">
-        Куда отправить подборку?
-      </div>
-
-
-      <div class="elp-fields">
-
-
-        <label>
-
-          <span>
-            Имя
-          </span>
-
-          <input
-            type="text"
-            name="first_name"
-            required
-            autocomplete="given-name"
-            placeholder="Имя"
-          >
-
-        </label>
-
-
-        <label>
-
-          <span>
-            Фамилия
-          </span>
-
-          <input
-            type="text"
-            name="last_name"
-            required
-            autocomplete="family-name"
-            placeholder="Фамилия"
-          >
-
-        </label>
-
-
-        <label>
-
-          <span>
-            Телефон
-          </span>
-
-          <input
-            type="tel"
-            name="phone"
-            required
-            autocomplete="tel"
-            inputmode="tel"
-            placeholder="+7"
-          >
-
-        </label>
-
-
-        <label>
-
-          <span>
-            Отчество
-          </span>
-
-          <input
-            type="text"
-            name="patronymic"
-            autocomplete="additional-name"
-            placeholder="Отчество"
-          >
-
-        </label>
-
-      </div>
-
-
-      <label class="elp-consent">
-
-        <input
-          type="checkbox"
-          name="consent"
-          required
-        >
-
-        <span>
-
-          Соглашаюсь на обработку персональных данных
-          и принимаю
-
-          <a
-            id="privacyLink"
-            href="https://elitopolis.ru/"
-            target="_blank"
-            rel="noopener"
-          >
-            политику конфиденциальности
-          </a>.
-
-        </span>
-
-      </label>
-
-
-      <button
-        type="submit"
-        class="elp-primary elp-submit"
-      >
-
-        Получить варианты
-
-        <span>→</span>
-
+      <button type="button" class="elp-primary elp-scroll-form">
+        Подобрать варианты <span>→</span>
       </button>
 
-
-      <div
-        class="elp-form-status"
-        id="formStatus"
-        aria-live="polite"
-      ></div>
-
-    </form>
-
-
-    <!-- ПОЯВЛЯЕТСЯ ПОСЛЕ УСПЕШНОЙ ОТПРАВКИ -->
-
-    <div
-      class="elp-success"
-      id="successBlock"
-      hidden
-    >
-
-      <div class="elp-success__mark">
-        ✓
-      </div>
-
-      <h2>
-        Спасибо!
-      </h2>
-
-      <p>
-        Мы уже приступили к подбору актуальных вариантов.<br>
-        Скоро свяжемся с вами.
-      </p>
-
       <div class="elp-note">
-        АН «Элитополис»
+        Подбор и консультация — без обязательств.
       </div>
 
-    </div>
+    </section>
 
 
-  </div>
+    <section class="elp-form-section" id="formSection">
 
-</section>
+      <div class="elp-form-card">
+
+        <div class="elp-form-copy">
+
+          <div class="elp-section-kicker">
+            ВАШ ЗАПРОС
+          </div>
+
+          <h2>
+            Что вам показать?
+          </h2>
+
+          <p>
+            Выберите то, что важно.
+            Можно несколько вариантов.
+          </p>
+
+        </div>
+
+
+        <form id="leadForm" novalidate>
+
+          <div class="elp-chips" id="interestChips">
+
+            <label class="elp-chip">
+              <input type="checkbox" name="interests" value="Квартиры и планировки">
+              <span>Квартиры и планировки</span>
+            </label>
+
+            <label class="elp-chip">
+              <input type="checkbox" name="interests" value="Цены">
+              <span>Цены</span>
+            </label>
+
+            <label class="elp-chip">
+              <input type="checkbox" name="interests" value="Рассрочка / ипотека">
+              <span>Рассрочка / ипотека</span>
+            </label>
+
+            <label class="elp-chip">
+              <input type="checkbox" name="interests" value="Вид из квартиры">
+              <span>Вид из квартиры</span>
+            </label>
+
+            <label class="elp-chip">
+              <input type="checkbox" name="interests" value="Хочу сравнить варианты">
+              <span>Хочу сравнить варианты</span>
+            </label>
+
+            <label class="elp-chip">
+              <input type="checkbox" name="interests" value="Пока просто смотрю">
+              <span>Пока просто смотрю</span>
+            </label>
+
+          </div>
+
+
+          <div class="elp-contact-title">
+            Куда отправить подборку?
+          </div>
+
+
+          <div class="elp-fields">
+
+            <label>
+              <span>Имя</span>
+              <input
+                type="text"
+                name="first_name"
+                required
+                autocomplete="given-name"
+                placeholder="Имя"
+              >
+            </label>
+
+            <label>
+              <span>Фамилия</span>
+              <input
+                type="text"
+                name="last_name"
+                required
+                autocomplete="family-name"
+                placeholder="Фамилия"
+              >
+            </label>
+
+            <label>
+              <span>Телефон</span>
+              <input
+                type="tel"
+                name="phone"
+                required
+                autocomplete="tel"
+                inputmode="tel"
+                placeholder="+7"
+              >
+            </label>
+
+            <label>
+              <span>Отчество</span>
+              <input
+                type="text"
+                name="patronymic"
+                autocomplete="additional-name"
+                placeholder="Отчество"
+              >
+            </label>
+
+          </div>
+
+
+          <label class="elp-consent">
+
+            <input
+              type="checkbox"
+              name="consent"
+              required
+            >
+
+            <span>
+              Соглашаюсь на обработку персональных данных
+              и принимаю
+              <a
+                href="https://elitopolis.ru/"
+                target="_blank"
+                rel="noopener"
+              >
+                политику конфиденциальности
+              </a>.
+            </span>
+
+          </label>
+
+
+          <button type="submit" class="elp-primary elp-submit">
+            Получить варианты <span>→</span>
+          </button>
+
+          <div
+            class="elp-form-status"
+            id="formStatus"
+            aria-live="polite"
+          ></div>
+
+        </form>
+
+
+        <div
+          class="elp-success"
+          id="successBlock"
+          hidden
+        >
+
+          <div class="elp-success__mark">
+            ✓
+          </div>
+
+          <h2>
+            Спасибо!
+          </h2>
+
+          <p>
+            Мы уже приступили к подбору актуальных вариантов.<br>
+            Скоро свяжемся с вами.
+          </p>
+
+          <div class="elp-note">
+            АН «Элитополис»
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <script>
+    /*
+      Пока backend не подключён.
+      Внутреннего названия объекта здесь нет.
+    */
+    const ELITOPOLIS_API_ENDPOINT = "";
+    const ELITOPOLIS_CAMPAIGN = "troitsky_01";
+
+    const $ = (selector, root = document) => root.querySelector(selector);
+    const $$ = (selector, root = document) => Array.from(root.querySelectorAll(selector));
+
+    const formSection = $("#formSection");
+    const form = $("#leadForm");
+    const status = $("#formStatus");
+    const success = $("#successBlock");
+
+    function scrollToForm(){
+      if(formSection){
+        formSection.scrollIntoView({
+          behavior:"smooth",
+          block:"start"
+        });
+      }
+    }
+
+    $$(".elp-scroll-form").forEach(button => {
+      button.addEventListener("click", scrollToForm);
+    });
+
+    $$(".elp-choice").forEach(button => {
+
+      button.addEventListener("click", () => {
+
+        const interest =
+          button.dataset.interest || "";
+
+        $$(".elp-choice").forEach(item => {
+          item.classList.remove("is-selected");
+        });
+
+        button.classList.add("is-selected");
+
+        $$("#interestChips input[type=checkbox]").forEach(input => {
+          if(input.value === interest){
+            input.checked = true;
+          }
+        });
+
+        scrollToForm();
+
+      });
+
+    });
+
+    if(form){
+
+      form.addEventListener("submit", async event => {
+
+        event.preventDefault();
+
+        status.textContent = "";
+
+        const firstName =
+          form.elements.first_name.value.trim();
+
+        const lastName =
+          form.elements.last_name.value.trim();
+
+        const patronymic =
+          form.elements.patronymic.value.trim();
+
+        const phone =
+          form.elements.phone.value.trim();
+
+        if(
+          !firstName ||
+          !lastName ||
+          !phone
+        ){
+          status.textContent =
+            "Заполните имя, фамилию и телефон.";
+          return;
+        }
+
+        if(
+          !form.elements.consent.checked
+        ){
+          status.textContent =
+            "Подтвердите согласие на обработку персональных данных.";
+          return;
+        }
+
+        if(!ELITOPOLIS_API_ENDPOINT){
+          status.textContent =
+            "Форма пока в тестовом режиме. Следующим шагом подключим обработку заявок.";
+          return;
+        }
+
+        const submit =
+          $(".elp-submit", form);
+
+        submit.disabled =
+          true;
+
+        const params =
+          new URLSearchParams(location.search);
+
+        const interests =
+          $$("#interestChips input[type=checkbox]:checked")
+            .map(input => input.value);
+
+        const payload = {
+
+          first_name:firstName,
+          last_name:lastName,
+          patronymic:patronymic,
+          phone:phone,
+
+          campaign:
+            ELITOPOLIS_CAMPAIGN,
+
+          interests:interests,
+
+          source:
+            params.get("utm_source") ||
+            params.get("source") ||
+            "",
+
+          utm_campaign:
+            params.get("utm_campaign") ||
+            "",
+
+          utm_medium:
+            params.get("utm_medium") ||
+            "",
+
+          utm_content:
+            params.get("utm_content") ||
+            "",
+
+          page_url:
+            location.href,
+
+          referrer:
+            document.referrer || ""
+
+        };
+
+        try{
+
+          const response =
+            await fetch(
+              ELITOPOLIS_API_ENDPOINT,
+              {
+                method:"POST",
+                headers:{
+                  "Content-Type":
+                    "application/json"
+                },
+                body:
+                  JSON.stringify(payload)
+              }
+            );
+
+          if(!response.ok){
+            throw new Error(
+              "HTTP " +
+              response.status
+            );
+          }
+
+          form.hidden =
+            true;
+
+          success.hidden =
+            false;
+
+        }
+        catch(error){
+
+          status.textContent =
+            "Не удалось отправить запрос. Попробуйте ещё раз.";
+
+          submit.disabled =
+            false;
+
+        }
+
+      });
+
+    }
+  </script>
+
+</body>
+</html>
