@@ -3,109 +3,553 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
+
   <title>Подбор недвижимости — Элитополис</title>
-  <meta name="description" content="АН «Элитополис» — подбор актуальных вариантов недвижимости, планировок и условий покупки.">
+
+  <meta
+    name="description"
+    content="АН «Элитополис» — подбор актуальных вариантов недвижимости, планировок и условий покупки."
+  >
+
   <meta name="robots" content="index,follow">
+
   <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
+
   <main class="elp-wrap">
+
+
+    <!-- =========================
+         ПЕРВЫЙ ЭКРАН
+         ========================= -->
+
     <section class="elp-hero">
-      <div class="elp-hero__copy">
-        <div class="elp-eyebrow">АН «Элитополис» · подбор недвижимости</div>
-        <h1>Квартиру выбирайте сами</h1>
-        <p class="elp-lead">
-          Подберём актуальные варианты, проверим планировки, условия покупки и детали конкретных квартир.
-        </p>
 
-        <div class="elp-choice-grid" aria-label="Что хотите посмотреть">
-          <button type="button" class="elp-choice" data-interest="Квартиры и планировки">
-            <span class="elp-choice__num">01</span>
-            <span><strong>Квартиры и планировки</strong><small>Подобрать варианты под ваш запрос</small></span>
-          </button>
-          <button type="button" class="elp-choice" data-interest="Цены">
-            <span class="elp-choice__num">02</span>
-            <span><strong>Цены и условия</strong><small>Проверить актуальные условия покупки</small></span>
-          </button>
-          <button type="button" class="elp-choice" data-interest="Вид из квартиры">
-            <span class="elp-choice__num">03</span>
-            <span><strong>Вид и расположение</strong><small>Проверить этаж, окна и вид</small></span>
-          </button>
-        </div>
 
-        <button type="button" class="elp-primary elp-scroll-form">Получить подборку <span>→</span></button>
-      </div>
+      <!-- ФОТО СЛЕВА -->
 
       <div class="elp-hero__visual" id="heroVisual">
-        <div class="elp-hero__placeholder">Сюда загрузим утверждённый вечерний кадр</div>
+
+        <div class="elp-hero__placeholder">
+          Сюда загрузим утверждённый вечерний кадр
+        </div>
+
       </div>
+
+
+      <!-- ТЕКСТ СПРАВА -->
+
+      <div class="elp-hero__copy">
+
+        <div class="elp-eyebrow">
+          АН «Элитополис» · подбор недвижимости
+        </div>
+
+
+        <h1 class="elp-title">
+          <span>Квартиру</span>
+          <span>выбирайте</span>
+          <span>сами</span>
+        </h1>
+
+
+        <p class="elp-lead">
+          Подберём актуальные варианты, проверим планировки,
+          условия покупки и детали конкретных квартир.
+        </p>
+
+
+        <div class="elp-choice-grid" aria-label="Что хотите посмотреть">
+
+
+          <button
+            type="button"
+            class="elp-choice"
+            data-interest="Квартиры и планировки"
+          >
+
+            <span class="elp-choice__num">
+              01
+            </span>
+
+            <span>
+
+              <strong>
+                Квартиры и планировки
+              </strong>
+
+              <small>
+                Подобрать варианты под ваш запрос
+              </small>
+
+            </span>
+
+          </button>
+
+
+          <button
+            type="button"
+            class="elp-choice"
+            data-interest="Цены"
+          >
+
+            <span class="elp-choice__num">
+              02
+            </span>
+
+            <span>
+
+              <strong>
+                Цены и условия
+              </strong>
+
+              <small>
+                Проверить актуальные условия покупки
+              </small>
+
+            </span>
+
+          </button>
+
+
+          <button
+            type="button"
+            class="elp-choice"
+            data-interest="Вид из квартиры"
+          >
+
+            <span class="elp-choice__num">
+              03
+            </span>
+
+            <span>
+
+              <strong>
+                Вид и расположение
+              </strong>
+
+              <small>
+                Проверить этаж, окна и вид
+              </small>
+
+            </span>
+
+          </button>
+
+
+        </div>
+
+
+        <button
+          type="button"
+          class="elp-primary elp-scroll-form"
+        >
+
+          Получить подборку
+
+          <span>→</span>
+
+        </button>
+
+
+      </div>
+
     </section>
+
+
+
+    <!-- =========================
+         ВТОРОЙ ЭКРАН
+         ========================= -->
 
     <section class="elp-service">
-      <div class="elp-section-kicker">ЭЛИТОПОЛИС</div>
-      <h2>Подбор вместо бесконечного поиска</h2>
+
+
+      <div class="elp-section-kicker">
+        ЭЛИТОПОЛИС
+      </div>
+
+
+      <h2>
+        Подбор вместо бесконечного поиска
+      </h2>
+
+
       <p class="elp-service__intro">
-        Не нужно самостоятельно сравнивать десятки сайтов, звонить в отделы продаж и выяснять,
-        какие предложения ещё актуальны. АН «Элитополис» проверит варианты под ваш запрос
+
+        Не нужно самостоятельно сравнивать десятки сайтов,
+        звонить в отделы продаж и выяснять, какие предложения
+        ещё актуальны.
+
+        АН «Элитополис» проверит варианты под ваш запрос
         и соберёт их в одну понятную подборку.
+
       </p>
 
+
       <div class="elp-benefits">
-        <div><strong>Актуальность</strong><p>Проверим, какие квартиры действительно доступны сейчас.</p></div>
-        <div><strong>Планировки</strong><p>Отберём подходящие варианты, а не весь каталог подряд.</p></div>
-        <div><strong>Условия покупки</strong><p>Сравним действующие способы оплаты и предложения.</p></div>
-        <div><strong>Конкретная квартира</strong><p>Проверим этаж, расположение, ориентацию окон и вид.</p></div>
-      </div>
 
-      <button type="button" class="elp-primary elp-scroll-form">Подобрать варианты <span>→</span></button>
-      <div class="elp-note">Подбор и консультация — без обязательств.</div>
-    </section>
 
-    <section class="elp-form-section" id="formSection">
-      <div class="elp-form-card">
-        <div class="elp-form-copy">
-          <div class="elp-section-kicker">ВАШ ЗАПРОС</div>
-          <h2>Что вам показать?</h2>
-          <p>Выберите то, что важно. Можно несколько вариантов.</p>
+        <div>
+
+          <strong>
+            Актуальность
+          </strong>
+
+          <p>
+            Проверим, какие квартиры действительно доступны сейчас.
+          </p>
+
         </div>
 
-        <form id="leadForm" novalidate>
-          <div class="elp-chips" id="interestChips">
-            <label class="elp-chip"><input type="checkbox" name="interests" value="Квартиры и планировки"><span>Квартиры и планировки</span></label>
-            <label class="elp-chip"><input type="checkbox" name="interests" value="Цены"><span>Цены</span></label>
-            <label class="elp-chip"><input type="checkbox" name="interests" value="Рассрочка / ипотека"><span>Рассрочка / ипотека</span></label>
-            <label class="elp-chip"><input type="checkbox" name="interests" value="Вид из квартиры"><span>Вид из квартиры</span></label>
-            <label class="elp-chip"><input type="checkbox" name="interests" value="Хочу сравнить варианты"><span>Хочу сравнить варианты</span></label>
-            <label class="elp-chip"><input type="checkbox" name="interests" value="Пока просто смотрю"><span>Пока просто смотрю</span></label>
+
+        <div>
+
+          <strong>
+            Планировки
+          </strong>
+
+          <p>
+            Отберём подходящие варианты, а не весь каталог подряд.
+          </p>
+
+        </div>
+
+
+        <div>
+
+          <strong>
+            Условия покупки
+          </strong>
+
+          <p>
+            Сравним действующие способы оплаты и предложения.
+          </p>
+
+        </div>
+
+
+        <div>
+
+          <strong>
+            Конкретная квартира
+          </strong>
+
+          <p>
+            Проверим этаж, расположение, ориентацию окон и вид.
+          </p>
+
+        </div>
+
+
+      </div>
+
+
+      <button
+        type="button"
+        class="elp-primary elp-scroll-form"
+      >
+
+        Подобрать варианты
+
+        <span>→</span>
+
+      </button>
+
+
+      <div class="elp-note">
+        Подбор и консультация — без обязательств.
+      </div>
+
+
+    </section>
+
+
+
+    <!-- =========================
+         ТРЕТИЙ ЭКРАН
+         ========================= -->
+
+    <section
+      class="elp-form-section"
+      id="formSection"
+    >
+
+
+      <div class="elp-form-card">
+
+
+        <div class="elp-form-copy">
+
+          <div class="elp-section-kicker">
+            ВАШ ЗАПРОС
           </div>
 
-          <div class="elp-contact-title">Куда отправить подборку?</div>
-          <div class="elp-fields">
-            <label><span>Имя</span><input type="text" name="name" required autocomplete="name" placeholder="Ваше имя"></label>
-            <label><span>Телефон</span><input type="tel" name="phone" required autocomplete="tel" inputmode="tel" placeholder="+7"></label>
+
+          <h2>
+            Что вам показать?
+          </h2>
+
+
+          <p>
+            Выберите то, что важно.
+            Можно несколько вариантов.
+          </p>
+
+        </div>
+
+
+
+        <form
+          id="leadForm"
+          novalidate
+        >
+
+
+          <div
+            class="elp-chips"
+            id="interestChips"
+          >
+
+
+            <label class="elp-chip">
+
+              <input
+                type="checkbox"
+                name="interests"
+                value="Квартиры и планировки"
+              >
+
+              <span>
+                Квартиры и планировки
+              </span>
+
+            </label>
+
+
+            <label class="elp-chip">
+
+              <input
+                type="checkbox"
+                name="interests"
+                value="Цены"
+              >
+
+              <span>
+                Цены
+              </span>
+
+            </label>
+
+
+            <label class="elp-chip">
+
+              <input
+                type="checkbox"
+                name="interests"
+                value="Рассрочка / ипотека"
+              >
+
+              <span>
+                Рассрочка / ипотека
+              </span>
+
+            </label>
+
+
+            <label class="elp-chip">
+
+              <input
+                type="checkbox"
+                name="interests"
+                value="Вид из квартиры"
+              >
+
+              <span>
+                Вид из квартиры
+              </span>
+
+            </label>
+
+
+            <label class="elp-chip">
+
+              <input
+                type="checkbox"
+                name="interests"
+                value="Хочу сравнить варианты"
+              >
+
+              <span>
+                Хочу сравнить варианты
+              </span>
+
+            </label>
+
+
+            <label class="elp-chip">
+
+              <input
+                type="checkbox"
+                name="interests"
+                value="Пока просто смотрю"
+              >
+
+              <span>
+                Пока просто смотрю
+              </span>
+
+            </label>
+
+
           </div>
+
+
+
+          <div class="elp-contact-title">
+            Куда отправить подборку?
+          </div>
+
+
+
+          <div class="elp-fields">
+
+
+            <label>
+
+              <span>
+                Имя
+              </span>
+
+              <input
+                type="text"
+                name="name"
+                required
+                autocomplete="name"
+                placeholder="Ваше имя"
+              >
+
+            </label>
+
+
+            <label>
+
+              <span>
+                Телефон
+              </span>
+
+              <input
+                type="tel"
+                name="phone"
+                required
+                autocomplete="tel"
+                inputmode="tel"
+                placeholder="+7"
+              >
+
+            </label>
+
+
+          </div>
+
+
 
           <label class="elp-consent">
-            <input type="checkbox" name="consent" required>
-            <span>Соглашаюсь на обработку персональных данных и принимаю
-              <a id="privacyLink" href="https://elitopolis.ru/" target="_blank" rel="noopener">политику конфиденциальности</a>.
+
+
+            <input
+              type="checkbox"
+              name="consent"
+              required
+            >
+
+
+            <span>
+
+              Соглашаюсь на обработку персональных данных
+              и принимаю
+
+              <a
+                id="privacyLink"
+                href="https://elitopolis.ru/"
+                target="_blank"
+                rel="noopener"
+              >
+                политику конфиденциальности
+              </a>.
+
             </span>
+
+
           </label>
 
-          <button type="submit" class="elp-primary elp-submit">Получить варианты <span>→</span></button>
-          <div class="elp-form-status" id="formStatus" aria-live="polite"></div>
+
+
+          <button
+            type="submit"
+            class="elp-primary elp-submit"
+          >
+
+            Получить варианты
+
+            <span>→</span>
+
+          </button>
+
+
+
+          <div
+            class="elp-form-status"
+            id="formStatus"
+            aria-live="polite"
+          ></div>
+
+
         </form>
 
-        <div class="elp-success" id="successBlock" hidden>
-          <div class="elp-success__mark">✓</div>
-          <h2>Запрос получили.</h2>
-          <p>Проверим актуальные варианты и условия и свяжемся с вами.</p>
+
+
+        <div
+          class="elp-success"
+          id="successBlock"
+          hidden
+        >
+
+
+          <div class="elp-success__mark">
+            ✓
+          </div>
+
+
+          <h2>
+            Запрос получили.
+          </h2>
+
+
+          <p>
+            Проверим актуальные варианты и условия
+            и свяжемся с вами.
+          </p>
+
+
         </div>
+
+
       </div>
+
+
     </section>
+
+
   </main>
 
+
   <script src="config.js"></script>
+
   <script src="app.js"></script>
+
+
 </body>
 </html>
