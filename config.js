@@ -9,5 +9,5 @@ window.ELITOPOLIS_CONFIG = {
   privacyUrl: "https://elitopolis.ru/",
 
   // После загрузки hero.jpg автоматически появится вечерний кадр.
-  heroImage: "hero.jpg"
+  heroImage: "hero.jpg.png"
 };
