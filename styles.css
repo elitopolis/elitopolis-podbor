@@ -1,46 +1,501 @@
+:root{
+  --ink:#15171a;
+  --muted:#6e7279;
+  --line:rgba(21,23,26,.12);
+  --soft:#f5f5f2;
+  --card:#fff;
+}
 
-:root{--ink:#15171a;--muted:#6e7279;--line:rgba(21,23,26,.12);--soft:#f5f5f2;--card:#fff}
-*{box-sizing:border-box} html{scroll-behavior:smooth}
-body{margin:0;background:#fff;color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}
-button,input{font:inherit}.elp-wrap{max-width:1480px;margin:0 auto;padding:0 24px 64px}
-.elp-hero{min-height:86vh;display:grid;grid-template-columns:minmax(0,42%) minmax(0,58%);gap:36px;align-items:stretch;padding:28px 0 56px}
-.elp-hero__copy{display:flex;flex-direction:column;justify-content:center;padding:42px 10px 42px 0}
-.elp-eyebrow,.elp-section-kicker{font-size:12px;line-height:1.2;letter-spacing:.16em;text-transform:uppercase;font-weight:700;margin-bottom:22px;opacity:.72}
-h1,h2{margin:0;font-weight:600;letter-spacing:-.045em;line-height:.98}
-.elp-hero h1{font-size:clamp(52px,5.5vw,92px);max-width:720px}
-.elp-lead{font-size:clamp(18px,1.35vw,23px);line-height:1.5;max-width:650px;margin:28px 0 32px;color:var(--muted)}
-.elp-choice-grid{display:grid;gap:10px;margin:0 0 24px}
-.elp-choice{width:100%;display:grid;grid-template-columns:48px 1fr;gap:12px;align-items:center;text-align:left;border:1px solid var(--line);background:rgba(255,255,255,.72);padding:16px 18px;border-radius:16px;cursor:pointer;transition:.16s;color:inherit}
-.elp-choice:hover,.elp-choice.is-selected{transform:translateY(-1px);border-color:rgba(21,23,26,.36);background:#fff}
-.elp-choice__num{font-size:13px;opacity:.46;font-weight:700}.elp-choice strong{display:block;font-size:17px;margin-bottom:3px}
-.elp-choice small{display:block;color:var(--muted);font-size:14px}
-.elp-primary{appearance:none;border:0;background:var(--ink);color:#fff;border-radius:999px;padding:16px 24px;min-height:54px;display:inline-flex;gap:14px;align-items:center;justify-content:center;font-size:15px;font-weight:700;cursor:pointer;width:fit-content;transition:.16s}
-.elp-primary:hover{opacity:.9;transform:translateY(-1px)}.elp-primary:disabled{opacity:.5;cursor:wait}
-.elp-hero__visual{min-height:680px;background:linear-gradient(145deg,#1d2a38,#6b7888);background-size:cover;background-position:center;border-radius:26px;overflow:hidden;position:relative}
-.elp-hero__placeholder{position:absolute;inset:auto 24px 24px;color:rgba(255,255,255,.88);font-size:14px}
-.elp-service{padding:112px 0 120px;border-top:1px solid var(--line)}
-.elp-service h2,.elp-form-section h2{font-size:clamp(42px,4.8vw,74px);max-width:900px}
-.elp-service__intro{max-width:900px;font-size:clamp(19px,1.5vw,24px);line-height:1.55;color:var(--muted);margin:30px 0 50px}
-.elp-benefits{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:34px}
-.elp-benefits>div{background:var(--soft);border-radius:18px;padding:24px;min-height:180px}
-.elp-benefits strong{display:block;font-size:18px;margin-bottom:18px}.elp-benefits p{margin:0;color:var(--muted);line-height:1.5;font-size:15px}
-.elp-note{font-size:13px;color:var(--muted);margin-top:14px}
-.elp-form-section{padding:100px 0 70px;border-top:1px solid var(--line)}
-.elp-form-card{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:50px;align-items:start}
-.elp-form-copy p{color:var(--muted);font-size:18px;line-height:1.5}
-.elp-chips{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:34px}
-.elp-chip input{position:absolute;opacity:0;pointer-events:none}
-.elp-chip span{display:block;border:1px solid var(--line);border-radius:999px;padding:12px 16px;cursor:pointer;background:#fff;font-size:14px;transition:.16s}
-.elp-chip input:checked+span{background:var(--ink);color:#fff;border-color:var(--ink)}
-.elp-contact-title{font-size:24px;font-weight:650;margin:12px 0 18px}
-.elp-fields{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.elp-fields label>span{display:block;font-size:12px;font-weight:700;margin:0 0 7px 4px;text-transform:uppercase;letter-spacing:.08em;opacity:.6}
-.elp-fields input{width:100%;border:1px solid var(--line);border-radius:14px;min-height:56px;padding:0 16px;background:#fff;color:var(--ink);outline:none}
-.elp-fields input:focus{border-color:rgba(21,23,26,.5)}
-.elp-consent{display:grid;grid-template-columns:18px 1fr;gap:10px;margin:18px 0 24px;color:var(--muted);font-size:12px;line-height:1.45}
-.elp-consent input{margin-top:2px}.elp-consent a{color:inherit;text-decoration:underline}
-.elp-form-status{margin-top:12px;font-size:13px;color:#9a2f2f}
-.elp-success{padding:30px 0}.elp-success__mark{width:50px;height:50px;border-radius:50%;display:grid;place-items:center;background:var(--ink);color:#fff;font-size:24px;margin-bottom:24px}
-.elp-success p{font-size:18px;color:var(--muted);line-height:1.5}
-@media(max-width:980px){.elp-wrap{padding:0 18px 42px}.elp-hero{min-height:auto;grid-template-columns:1fr;gap:24px;padding-top:12px}.elp-hero__visual{order:-1;min-height:min(72vw,560px);border-radius:20px}.elp-hero__copy{padding:10px 0 42px}.elp-benefits{grid-template-columns:1fr 1fr}.elp-form-card{grid-template-columns:1fr;gap:34px}}
-@media(max-width:640px){.elp-wrap{padding-left:14px;padding-right:14px}.elp-hero__visual{min-height:66vw;border-radius:16px}.elp-eyebrow,.elp-section-kicker{margin-bottom:16px}.elp-hero h1{font-size:clamp(42px,13vw,60px)}.elp-lead{font-size:17px;margin:20px 0 24px}.elp-choice{grid-template-columns:38px 1fr;padding:14px}.elp-primary{width:100%}.elp-service{padding:72px 0 76px}.elp-service h2,.elp-form-section h2{font-size:42px}.elp-service__intro{font-size:17px;margin:24px 0 34px}.elp-benefits{grid-template-columns:1fr}.elp-benefits>div{min-height:auto}.elp-form-section{padding:72px 0 40px}.elp-fields{grid-template-columns:1fr}}
+*{
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  margin:0;
+  background:#fff;
+  color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+}
+
+button,
+input{
+  font:inherit;
+}
+
+.elp-wrap{
+  max-width:1480px;
+  margin:0 auto;
+  padding:0 24px 64px;
+}
+
+
+/* =========================
+   ПЕРВЫЙ ЭКРАН
+   ФОТО СЛЕВА / ТЕКСТ СПРАВА
+   ========================= */
+
+.elp-hero{
+  min-height:86vh;
+  display:grid;
+  grid-template-columns:minmax(0,58%) minmax(0,42%);
+  gap:36px;
+  align-items:stretch;
+  padding:28px 0 56px;
+}
+
+.elp-hero__visual{
+  grid-column:1;
+  grid-row:1;
+  min-height:680px;
+  background:linear-gradient(145deg,#1d2a38,#6b7888);
+  background-size:cover;
+  background-position:center;
+  border-radius:26px;
+  overflow:hidden;
+  position:relative;
+}
+
+.elp-hero__copy{
+  grid-column:2;
+  grid-row:1;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  padding:42px 0 42px 10px;
+}
+
+.elp-hero__placeholder{
+  position:absolute;
+  inset:auto 24px 24px;
+  color:rgba(255,255,255,.88);
+  font-size:14px;
+}
+
+.elp-eyebrow,
+.elp-section-kicker{
+  font-size:12px;
+  line-height:1.2;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  font-weight:700;
+  margin-bottom:22px;
+  opacity:.72;
+}
+
+h1,
+h2{
+  margin:0;
+  font-weight:600;
+  letter-spacing:-.045em;
+  line-height:.98;
+}
+
+.elp-hero h1{
+  font-size:clamp(52px,5.5vw,92px);
+  max-width:720px;
+}
+
+.elp-lead{
+  font-size:clamp(18px,1.35vw,23px);
+  line-height:1.5;
+  max-width:650px;
+  margin:28px 0 32px;
+  color:var(--muted);
+}
+
+
+/* =========================
+   КАРТОЧКИ ВЫБОРА
+   ========================= */
+
+.elp-choice-grid{
+  display:grid;
+  gap:10px;
+  margin:0 0 24px;
+}
+
+.elp-choice{
+  width:100%;
+  display:grid;
+  grid-template-columns:48px 1fr;
+  gap:12px;
+  align-items:center;
+  text-align:left;
+  border:1px solid var(--line);
+  background:rgba(255,255,255,.72);
+  padding:16px 18px;
+  border-radius:16px;
+  cursor:pointer;
+  transition:.16s;
+  color:inherit;
+}
+
+.elp-choice:hover,
+.elp-choice.is-selected{
+  transform:translateY(-1px);
+  border-color:rgba(21,23,26,.36);
+  background:#fff;
+}
+
+.elp-choice__num{
+  font-size:13px;
+  opacity:.46;
+  font-weight:700;
+}
+
+.elp-choice strong{
+  display:block;
+  font-size:17px;
+  margin-bottom:3px;
+}
+
+.elp-choice small{
+  display:block;
+  color:var(--muted);
+  font-size:14px;
+}
+
+
+/* =========================
+   КНОПКИ
+   ========================= */
+
+.elp-primary{
+  appearance:none;
+  border:0;
+  background:var(--ink);
+  color:#fff;
+  border-radius:999px;
+  padding:16px 24px;
+  min-height:54px;
+  display:inline-flex;
+  gap:14px;
+  align-items:center;
+  justify-content:center;
+  font-size:15px;
+  font-weight:700;
+  cursor:pointer;
+  width:fit-content;
+  transition:.16s;
+}
+
+.elp-primary:hover{
+  opacity:.9;
+  transform:translateY(-1px);
+}
+
+.elp-primary:disabled{
+  opacity:.5;
+  cursor:wait;
+}
+
+
+/* =========================
+   ВТОРОЙ ЭКРАН
+   ========================= */
+
+.elp-service{
+  padding:112px 0 120px;
+  border-top:1px solid var(--line);
+}
+
+.elp-service h2,
+.elp-form-section h2{
+  font-size:clamp(42px,4.8vw,74px);
+  max-width:900px;
+}
+
+.elp-service__intro{
+  max-width:900px;
+  font-size:clamp(19px,1.5vw,24px);
+  line-height:1.55;
+  color:var(--muted);
+  margin:30px 0 50px;
+}
+
+.elp-benefits{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:14px;
+  margin-bottom:34px;
+}
+
+.elp-benefits>div{
+  background:var(--soft);
+  border-radius:18px;
+  padding:24px;
+  min-height:180px;
+}
+
+.elp-benefits strong{
+  display:block;
+  font-size:18px;
+  margin-bottom:18px;
+}
+
+.elp-benefits p{
+  margin:0;
+  color:var(--muted);
+  line-height:1.5;
+  font-size:15px;
+}
+
+.elp-note{
+  font-size:13px;
+  color:var(--muted);
+  margin-top:14px;
+}
+
+
+/* =========================
+   ТРЕТИЙ ЭКРАН / ФОРМА
+   ========================= */
+
+.elp-form-section{
+  padding:100px 0 70px;
+  border-top:1px solid var(--line);
+}
+
+.elp-form-card{
+  display:grid;
+  grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);
+  gap:50px;
+  align-items:start;
+}
+
+.elp-form-copy p{
+  color:var(--muted);
+  font-size:18px;
+  line-height:1.5;
+}
+
+.elp-chips{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-bottom:34px;
+}
+
+.elp-chip input{
+  position:absolute;
+  opacity:0;
+  pointer-events:none;
+}
+
+.elp-chip span{
+  display:block;
+  border:1px solid var(--line);
+  border-radius:999px;
+  padding:12px 16px;
+  cursor:pointer;
+  background:#fff;
+  font-size:14px;
+  transition:.16s;
+}
+
+.elp-chip input:checked+span{
+  background:var(--ink);
+  color:#fff;
+  border-color:var(--ink);
+}
+
+.elp-contact-title{
+  font-size:24px;
+  font-weight:650;
+  margin:12px 0 18px;
+}
+
+.elp-fields{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
+
+.elp-fields label>span{
+  display:block;
+  font-size:12px;
+  font-weight:700;
+  margin:0 0 7px 4px;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  opacity:.6;
+}
+
+.elp-fields input{
+  width:100%;
+  border:1px solid var(--line);
+  border-radius:14px;
+  min-height:56px;
+  padding:0 16px;
+  background:#fff;
+  color:var(--ink);
+  outline:none;
+}
+
+.elp-fields input:focus{
+  border-color:rgba(21,23,26,.5);
+}
+
+.elp-consent{
+  display:grid;
+  grid-template-columns:18px 1fr;
+  gap:10px;
+  margin:18px 0 24px;
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.45;
+}
+
+.elp-consent input{
+  margin-top:2px;
+}
+
+.elp-consent a{
+  color:inherit;
+  text-decoration:underline;
+}
+
+.elp-form-status{
+  margin-top:12px;
+  font-size:13px;
+  color:#9a2f2f;
+}
+
+.elp-success{
+  padding:30px 0;
+}
+
+.elp-success__mark{
+  width:50px;
+  height:50px;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  background:var(--ink);
+  color:#fff;
+  font-size:24px;
+  margin-bottom:24px;
+}
+
+.elp-success p{
+  font-size:18px;
+  color:var(--muted);
+  line-height:1.5;
+}
+
+
+/* =========================
+   ПЛАНШЕТ
+   ========================= */
+
+@media(max-width:980px){
+
+  .elp-wrap{
+    padding:0 18px 42px;
+  }
+
+  .elp-hero{
+    min-height:auto;
+    grid-template-columns:1fr;
+    gap:24px;
+    padding-top:12px;
+  }
+
+  .elp-hero__visual{
+    grid-column:1;
+    grid-row:1;
+    order:-1;
+    min-height:min(72vw,560px);
+    border-radius:20px;
+  }
+
+  .elp-hero__copy{
+    grid-column:1;
+    grid-row:2;
+    padding:10px 0 42px;
+  }
+
+  .elp-benefits{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .elp-form-card{
+    grid-template-columns:1fr;
+    gap:34px;
+  }
+}
+
+
+/* =========================
+   ТЕЛЕФОН
+   ========================= */
+
+@media(max-width:640px){
+
+  .elp-wrap{
+    padding-left:14px;
+    padding-right:14px;
+  }
+
+  .elp-hero__visual{
+    min-height:66vw;
+    border-radius:16px;
+  }
+
+  .elp-eyebrow,
+  .elp-section-kicker{
+    margin-bottom:16px;
+  }
+
+  .elp-hero h1{
+    font-size:clamp(42px,13vw,60px);
+  }
+
+  .elp-lead{
+    font-size:17px;
+    margin:20px 0 24px;
+  }
+
+  .elp-choice{
+    grid-template-columns:38px 1fr;
+    padding:14px;
+  }
+
+  .elp-primary{
+    width:100%;
+  }
+
+  .elp-service{
+    padding:72px 0 76px;
+  }
+
+  .elp-service h2,
+  .elp-form-section h2{
+    font-size:42px;
+  }
+
+  .elp-service__intro{
+    font-size:17px;
+    margin:24px 0 34px;
+  }
+
+  .elp-benefits{
+    grid-template-columns:1fr;
+  }
+
+  .elp-benefits>div{
+    min-height:auto;
+  }
+
+  .elp-form-section{
+    padding:72px 0 40px;
+  }
+
+  .elp-fields{
+    grid-template-columns:1fr;
+  }
+}
