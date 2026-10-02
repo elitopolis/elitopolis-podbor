@@ -425,10 +425,27 @@
 
               <input
                 type="text"
-                name="name"
+                name="first_name"
                 required
-                autocomplete="name"
-                placeholder="Ваше имя"
+                autocomplete="given-name"
+                placeholder="Имя"
+              >
+
+            </label>
+
+
+            <label>
+
+              <span>
+                Фамилия
+              </span>
+
+              <input
+                type="text"
+                name="last_name"
+                required
+                autocomplete="family-name"
+                placeholder="Фамилия"
               >
 
             </label>
@@ -447,6 +464,22 @@
                 autocomplete="tel"
                 inputmode="tel"
                 placeholder="+7"
+              >
+
+            </label>
+
+
+            <label>
+
+              <span>
+                Отчество
+              </span>
+
+              <input
+                type="text"
+                name="patronymic"
+                autocomplete="additional-name"
+                placeholder="Отчество"
               >
 
             </label>
