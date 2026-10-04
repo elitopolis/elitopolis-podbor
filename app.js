@@ -1,486 +1,327 @@
-(function(){
+(() => {
+  'use strict';
 
-  const cfg =
-    window.ELITOPOLIS_CONFIG || {};
+  const cfg = window.ELITOPOLIS_CONFIG || {};
 
+  // =========================================================
+  // БОЕВЫЕ НАСТРОЙКИ
+  // =========================================================
 
-  const $ =
-    (selector, root = document) =>
-      root.querySelector(selector);
+  const API_ENDPOINT =
+    cfg.apiEndpoint ||
+    'https://newapi.elitopolis.ru/webhook/elitopolis-lead';
 
+  const CAMPAIGN =
+    cfg.campaign ||
+    'troitsky_01';
 
-  const $$ =
-    (selector, root = document) =>
-      Array.from(
-        root.querySelectorAll(selector)
-      );
 
+  // =========================================================
+  // ЭЛЕМЕНТЫ СТРАНИЦЫ
+  // =========================================================
 
+  const form = document.getElementById('leadForm');
+  const successBlock = document.getElementById('successBlock');
+  const formStatus = document.getElementById('formStatus');
+  const heroVisual = document.getElementById('heroVisual');
+  const privacyLink = document.getElementById('privacyLink');
 
-  /* =========================
-     HERO IMAGE
-     ========================= */
-
-  const hero =
-    $("#heroVisual");
-
-
-  if(
-    cfg.heroImage &&
-    hero
-  ){
-
-    const img =
-      new Image();
-
-
-    img.onload = () => {
-
-      hero.style.backgroundImage =
-        `url("${cfg.heroImage}")`;
-
-
-      const placeholder =
-        $(".elp-hero__placeholder", hero);
-
-
-      if(placeholder){
-        placeholder.remove();
-      }
-
-    };
-
-
-    img.src =
-      cfg.heroImage;
-
-  }
-
-
-
-  /* =========================
-     PRIVACY POLICY
-     ========================= */
-
-  const privacy =
-    $("#privacyLink");
-
-
-  if(
-    privacy &&
-    cfg.privacyUrl
-  ){
-
-    privacy.href =
-      cfg.privacyUrl;
-
-  }
-
-
-
-  /* =========================
-     ELEMENTS
-     ========================= */
-
-  const formSection =
-    $("#formSection");
-
-
-  const form =
-    $("#leadForm");
-
-
-  const status =
-    $("#formStatus");
-
-
-  const success =
-    $("#successBlock");
-
-
-
-  /* =========================
-     SCROLL TO FORM
-     ========================= */
-
-  function scrollToForm(){
-
-    if(!formSection){
-      return;
-    }
-
-
-    formSection.scrollIntoView({
-
-      behavior:"smooth",
-
-      block:"start"
-
-    });
-
-  }
-
-
-
-  $$(".elp-scroll-form")
-    .forEach(
-
-      button => {
-
-        button.addEventListener(
-          "click",
-          scrollToForm
-        );
-
-      }
-
-    );
-
-
-
-  /* =========================
-     INTEREST BUTTONS
-     ========================= */
-
-  $$(".elp-choice")
-    .forEach(
-
-      button => {
-
-        button.addEventListener(
-          "click",
-          () => {
-
-            const interest =
-              button.dataset.interest || "";
-
-
-            $$(".elp-choice")
-              .forEach(
-
-                item => {
-
-                  item.classList.remove(
-                    "is-selected"
-                  );
-
-                }
-
-              );
-
-
-            button.classList.add(
-              "is-selected"
-            );
-
-
-            $$("#interestChips input[type=checkbox]")
-              .forEach(
-
-                input => {
-
-                  if(
-                    input.value === interest
-                  ){
-
-                    input.checked = true;
-
-                  }
-
-                }
-
-              );
-
-
-            scrollToForm();
-
-          }
-        );
-
-      }
-
-    );
-
-
-
-  /* =========================
-     FORM
-     ========================= */
-
-  if(!form){
+  if (!form) {
+    console.error('Elitopolis: не найден #leadForm');
     return;
   }
 
 
+  // =========================================================
+  // КАРТИНКА HERO И ПОЛИТИКА КОНФИДЕНЦИАЛЬНОСТИ
+  // =========================================================
 
-  form.addEventListener(
-    "submit",
+  if (heroVisual && cfg.heroImage) {
+    heroVisual.style.backgroundImage = `url("${cfg.heroImage}")`;
+  }
 
-    async event => {
+  if (privacyLink && cfg.privacyUrl) {
+    privacyLink.href = cfg.privacyUrl;
+  }
 
 
+  // =========================================================
+  // UTM-МЕТКИ
+  // =========================================================
+
+  const params = new URLSearchParams(window.location.search);
+
+  const utm = {
+    source: params.get('utm_source') || '',
+    campaign: params.get('utm_campaign') || '',
+    medium: params.get('utm_medium') || '',
+    content: params.get('utm_content') || ''
+  };
+
+
+  // =========================================================
+  // КНОПКИ ПРОКРУТКИ К ФОРМЕ
+  // =========================================================
+
+  document.querySelectorAll('.elp-scroll-form').forEach((button) => {
+    button.addEventListener('click', (event) => {
       event.preventDefault();
 
+      form.scrollIntoView({
+        behavior: 'smooth',
+        block: 'center'
+      });
+    });
+  });
 
-      status.textContent =
-        "";
 
+  // =========================================================
+  // КАРТОЧКИ ИНТЕРЕСОВ
+  // =========================================================
 
-      /* =====================
-         ОБЯЗАТЕЛЬНЫЕ ПОЛЯ
-         ===================== */
+  const updateChoiceState = () => {
+    document.querySelectorAll('.elp-choice').forEach((choice) => {
+      const checkbox = choice.querySelector(
+        'input[type="checkbox"][name="interests"]'
+      );
 
-      const firstName =
-        form.elements.first_name
-          .value
-          .trim();
+      if (!checkbox) return;
 
+      choice.classList.toggle('is-selected', checkbox.checked);
+    });
+  };
 
-      const lastName =
-        form.elements.last_name
-          .value
-          .trim();
+  document
+    .querySelectorAll('input[type="checkbox"][name="interests"]')
+    .forEach((checkbox) => {
+      checkbox.addEventListener('change', updateChoiceState);
+    });
 
+  updateChoiceState();
 
-      const patronymic =
-        form.elements.patronymic
-          .value
-          .trim();
 
+  // =========================================================
+  // ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ
+  // =========================================================
 
-      const phone =
-        form.elements.phone
-          .value
-          .trim();
+  const setStatus = (message, type = '') => {
+    if (!formStatus) return;
 
+    formStatus.textContent = message;
 
+    formStatus.classList.remove(
+      'is-error',
+      'is-success',
+      'is-loading'
+    );
 
-      /*
-         Дополнительная проверка.
+    if (type) {
+      formStatus.classList.add(`is-${type}`);
+    }
+  };
 
-         Даже если браузер по какой-то
-         причине пропустит required,
-         без имени, фамилии и телефона
-         форма дальше не пойдёт.
-      */
 
-      if(
-        !firstName ||
-        !lastName ||
-        !phone
-      ){
+  const getField = (name) => {
+    const field = form.elements[name];
 
-        status.textContent =
-          "Заполните имя, фамилию и телефон.";
+    if (!field) return '';
 
+    return String(field.value || '').trim();
+  };
 
-        return;
 
-      }
+  const getInterests = () => {
+    return Array.from(
+      form.querySelectorAll(
+        'input[type="checkbox"][name="interests"]:checked'
+      )
+    ).map((item) => item.value);
+  };
 
 
+  const getSubmitButton = () => {
+    return form.querySelector(
+      '.elp-submit, button[type="submit"], input[type="submit"]'
+    );
+  };
 
-      /*
-         Проверяем стандартные
-         обязательные поля,
-         включая согласие
-         на обработку данных.
-      */
 
-      if(
-        !form.reportValidity()
-      ){
+  // =========================================================
+  // ОТПРАВКА ФОРМЫ
+  // =========================================================
 
-        return;
+  let submitting = false;
 
-      }
+  form.addEventListener('submit', async (event) => {
+    event.preventDefault();
 
+    if (submitting) return;
 
 
-      /* =====================
-         ПОКА BACKEND НЕ ПОДКЛЮЧЕН
-         ===================== */
+    // -------------------------------------------------------
+    // Проверяем стандартные required-поля формы
+    // -------------------------------------------------------
 
-      if(
-        !cfg.apiEndpoint
-      ){
-
-        status.textContent =
-          "Форма пока в тестовом режиме. Следующим шагом подключим n8n.";
-
-
-        return;
-
-      }
-
-
-
-      /* =====================
-         БЛОКИРУЕМ КНОПКУ
-         ===================== */
-
-      const submit =
-        $(".elp-submit", form);
-
-
-      submit.disabled =
-        true;
-
-
-
-      /* =====================
-         UTM
-         ===================== */
-
-      const params =
-        new URLSearchParams(
-          location.search
-        );
-
-
-
-      /* =====================
-         ВЫБРАННЫЕ ИНТЕРЕСЫ
-         ===================== */
-
-      const interests =
-        $$("#interestChips input[type=checkbox]:checked")
-          .map(
-            input => input.value
-          );
-
-
-
-      /* =====================
-         ДАННЫЕ ЛИДА
-         ===================== */
-
-      const payload = {
-
-        first_name:
-          firstName,
-
-        last_name:
-          lastName,
-
-        patronymic:
-          patronymic,
-
-        phone:
-          phone,
-
-        campaign:
-          cfg.campaign ||
-          "troitsky_01",
-
-        interests:
-          interests,
-
-        source:
-          params.get("utm_source") ||
-          params.get("source") ||
-          "",
-
-        utm_campaign:
-          params.get("utm_campaign") ||
-          "",
-
-        utm_medium:
-          params.get("utm_medium") ||
-          "",
-
-        utm_content:
-          params.get("utm_content") ||
-          "",
-
-        page_url:
-          location.href,
-
-        referrer:
-          document.referrer ||
-          ""
-
-      };
-
-
-
-      /* =====================
-         ОТПРАВКА В N8N
-         ===================== */
-
-      try{
-
-
-        const response =
-          await fetch(
-
-            cfg.apiEndpoint,
-
-            {
-
-              method:"POST",
-
-              headers:{
-
-                "Content-Type":
-                  "application/json"
-
-              },
-
-              body:
-                JSON.stringify(
-                  payload
-                )
-
-            }
-
-          );
-
-
-
-        if(
-          !response.ok
-        ){
-
-          throw new Error(
-            "HTTP " +
-            response.status
-          );
-
-        }
-
-
-
-        /* =====================
-           УСПЕШНАЯ ЗАЯВКА
-           ===================== */
-
-        form.hidden =
-          true;
-
-
-        success.hidden =
-          false;
-
-
-
-      }
-      catch(error){
-
-
-        status.textContent =
-          "Не удалось отправить запрос. Попробуйте ещё раз.";
-
-
-        submit.disabled =
-          false;
-
-      }
-
-
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
     }
 
-  );
 
+    // -------------------------------------------------------
+    // Получаем данные
+    // -------------------------------------------------------
+
+    const firstName = getField('first_name');
+    const lastName = getField('last_name');
+    const patronymic = getField('patronymic');
+    const phone = getField('phone');
+
+    const consent = form.elements.consent;
+
+    if (consent && !consent.checked) {
+      setStatus(
+        'Необходимо согласие на обработку персональных данных.',
+        'error'
+      );
+      return;
+    }
+
+
+    if (!firstName || !lastName || !phone) {
+      setStatus(
+        'Заполните имя, фамилию и телефон.',
+        'error'
+      );
+      return;
+    }
+
+
+    const interests = getInterests();
+
+    const payload = {
+      first_name: firstName,
+      last_name: lastName,
+      patronymic: patronymic,
+      phone: phone,
+
+      campaign: CAMPAIGN,
+
+      interests: interests,
+
+      source:
+        utm.source ||
+        'go.elitopolis.ru',
+
+      utm_campaign: utm.campaign,
+      utm_medium: utm.medium,
+      utm_content: utm.content,
+
+      page_url: window.location.href,
+      referrer: document.referrer || ''
+    };
+
+
+    // -------------------------------------------------------
+    // Блокируем повторное нажатие
+    // -------------------------------------------------------
+
+    const submitButton = getSubmitButton();
+
+    submitting = true;
+
+    let oldButtonText = '';
+
+    if (submitButton) {
+      submitButton.disabled = true;
+
+      if (submitButton.tagName === 'INPUT') {
+        oldButtonText = submitButton.value;
+        submitButton.value = 'Отправляем...';
+      } else {
+        oldButtonText = submitButton.textContent;
+        submitButton.textContent = 'Отправляем...';
+      }
+    }
+
+    setStatus('Отправляем заявку...', 'loading');
+
+
+    // -------------------------------------------------------
+    // Отправляем в n8n
+    // -------------------------------------------------------
+
+    try {
+      const response = await fetch(API_ENDPOINT, {
+        method: 'POST',
+
+        headers: {
+          'Content-Type': 'application/json'
+        },
+
+        body: JSON.stringify(payload)
+      });
+
+
+      if (!response.ok) {
+        throw new Error(
+          `HTTP ${response.status}`
+        );
+      }
+
+
+      // -----------------------------------------------------
+      // УСПЕХ
+      // -----------------------------------------------------
+
+      setStatus('', '');
+
+      form.reset();
+      updateChoiceState();
+
+      if (successBlock) {
+        form.style.display = 'none';
+        successBlock.hidden = false;
+        successBlock.style.display = '';
+
+        successBlock.scrollIntoView({
+          behavior: 'smooth',
+          block: 'center'
+        });
+      } else {
+        setStatus(
+          'Спасибо! Заявка отправлена.',
+          'success'
+        );
+      }
+
+
+    } catch (error) {
+      console.error(
+        'Elitopolis: ошибка отправки заявки',
+        error
+      );
+
+      setStatus(
+        'Не удалось отправить заявку. Попробуйте ещё раз.',
+        'error'
+      );
+
+    } finally {
+      submitting = false;
+
+      if (submitButton) {
+        submitButton.disabled = false;
+
+        if (submitButton.tagName === 'INPUT') {
+          submitButton.value =
+            oldButtonText || 'Отправить';
+        } else {
+          submitButton.textContent =
+            oldButtonText || 'Отправить';
+        }
+      }
+    }
+  });
 
 })();
