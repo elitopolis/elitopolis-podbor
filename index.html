@@ -48,6 +48,51 @@
       padding:0 24px 64px;
     }
 
+    .elp-sitebar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      padding:18px 0 0;
+    }
+
+    .elp-sitebar__brand{
+      font-size:12px;
+      font-weight:700;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+    }
+
+    .elp-sitebar__phone,
+    .elp-footer__phone{
+      color:var(--ink);
+      font-weight:650;
+      text-decoration:none;
+      white-space:nowrap;
+      border-bottom:1px solid var(--line);
+      padding-bottom:3px;
+    }
+
+    .elp-sitebar__phone:focus-visible,
+    .elp-footer__phone:focus-visible{
+      outline:2px solid var(--ink);
+      outline-offset:4px;
+    }
+
+    .elp-footer{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:16px;
+      border-top:1px solid var(--line);
+      padding:28px 0 0;
+      font-size:14px;
+    }
+
+    .elp-footer__label{
+      color:var(--muted);
+    }
+
     .elp-hero{
       min-height:90vh;
       display:grid;
@@ -62,21 +107,22 @@
       grid-row:1;
 
       width:min(100%,calc(84vh * 0.5385));
-      aspect-ratio:896 / 1664;
       min-height:0;
 
       justify-self:center;
       align-self:center;
 
-      background-image:url("hero-correct.webp");
       background-color:#eef1f4;
-      background-size:cover;
-      background-position:center center;
-      background-repeat:no-repeat;
 
       border-radius:26px;
       overflow:hidden;
       position:relative;
+    }
+
+    .elp-hero__img{
+      display:block;
+      width:100%;
+      height:auto;
     }
 
     .elp-hero__copy{
@@ -476,8 +522,6 @@
         grid-row:1;
 
         width:min(100%,520px);
-        aspect-ratio:896 / 1664;
-
         justify-self:center;
 
         min-height:0;
@@ -514,7 +558,6 @@
 
       .elp-hero__visual{
         width:100%;
-        aspect-ratio:896 / 1664;
         min-height:0;
         border-radius:16px;
       }
@@ -585,12 +628,27 @@
 
   <main class="elp-wrap">
 
+    <header class="elp-sitebar">
+      <span class="elp-sitebar__brand">Элитополис</span>
+      <a class="elp-sitebar__phone" href="tel:+79331914142" aria-label="Позвонить в Элитополис: +7 933 191-41-42">+7 933 191-41-42</a>
+    </header>
+
     <section class="elp-hero">
 
       <div
         class="elp-hero__visual"
         id="heroVisual"
-      ></div>
+      >
+        <img
+          class="elp-hero__img"
+          src="hero-correct.webp"
+          alt="Троице-Измайловский собор и вечерний Санкт-Петербург"
+          width="896"
+          height="1664"
+          loading="eager"
+          fetchpriority="high"
+        >
+      </div>
 
       <div class="elp-hero__copy">
 
@@ -909,6 +967,19 @@
 
             <label>
               <span>
+                Отчество
+              </span>
+
+              <input
+                type="text"
+                name="patronymic"
+                autocomplete="additional-name"
+                placeholder="Отчество"
+              >
+            </label>
+
+            <label>
+              <span>
                 Телефон
               </span>
 
@@ -919,19 +990,6 @@
                 autocomplete="tel"
                 inputmode="tel"
                 placeholder="+7"
-              >
-            </label>
-
-            <label>
-              <span>
-                Отчество
-              </span>
-
-              <input
-                type="text"
-                name="patronymic"
-                autocomplete="additional-name"
-                placeholder="Отчество"
               >
             </label>
 
@@ -1017,6 +1075,11 @@
       </div>
 
     </section>
+
+    <footer class="elp-footer" aria-label="Контакты Элитополиса">
+      <span class="elp-footer__label">Элитополис · подбор недвижимости</span>
+      <a class="elp-footer__phone" href="tel:+79331914142" aria-label="Позвонить в Элитополис: +7 933 191-41-42">+7 933 191-41-42</a>
+    </footer>
 
   </main>
 
